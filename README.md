@@ -20,7 +20,8 @@ syuuha --> if1
 if1 -->|yes| jyusinn2
 if1 -->|no| jyusinn
 jyusinn2 --> syuuha2
-syuuha2 --> kakuno
+syuuha2 --> syutoku
+syutoku --> kakuno
 kakuno --> if2
 if2 -->|yes| end1
 if2 -->|no| jyusinn2
