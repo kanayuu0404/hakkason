@@ -4,17 +4,23 @@
 flowchart TD;
 
 start["開始"];
-end1["終了"]
-dainyuu1["変数1に挨拶1を代入する"]
-dainyuu2["変数2に挨拶2を代入する"]
-hennsuu1["変数1を表示"]
-hennsuu2["変数2を表示"]
+end["終了"]
+jyusinn["音を受信"]
+syuuha["受信した音の波から周波数を検知"]
+if1{"送信開始の音を検知したか"}
+yes1["検知した音に対応した4進数2bitを取得"]
+kakuno["取得したデータを配列に格納"]
+if2{"送信終了の音を検知したか"}
 
-start --> dainyuu1
-dainyuu1 --> dainyuu2
-dainyuu2 --> hennsuu1
-hennsuu1 --> hennsuu2
-hennsuu2 --> end1
+start --> jyusinn
+jyusinn --> syuuha
+syuuha --> if1
+if1 -->|yes| yes1
+if1 -->|no| jyusinn
+yes1 --> kakuno
+kakuno --> if2
+if2 -->|yes| end
+if2 -->|no| yes1
 ```
 
 ## フローチャート
