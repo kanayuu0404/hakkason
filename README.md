@@ -4,7 +4,7 @@
 flowchart TD;
 
 start["開始"];
-end["終了"];
+end1["終了"]
 jyusinn["音を受信"]
 syuuha["受信した音の波から周波数を検知"]
 if1{"送信開始の音を検知したか"}
@@ -19,7 +19,7 @@ if1 -->|yes| yes1
 if1 -->|no| jyusinn
 yes1 --> kakuno
 kakuno --> if2
-if2 -->|yes| end
+if2 -->|yes| end1
 if2 -->|no| yes1
 ```
 
