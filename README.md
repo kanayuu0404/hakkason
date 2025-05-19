@@ -6,21 +6,24 @@ flowchart TD;
 start["開始"];
 end1["終了"]
 jyusinn["音を受信"]
+jyusinn2["音を受信"]
 syuuha["受信した音の波から周波数を検知"]
+syuuha2["受信した音の波から周波数を検知"]
 if1{"送信開始の音を検知したか"}
-yes1["検知した音に対応した4進数2bitを取得"]
+syutoku["検知した音に対応した4進数2bitを取得"]
 kakuno["取得したデータを配列に格納"]
 if2{"送信終了の音を検知したか"}
 
 start --> jyusinn
 jyusinn --> syuuha
 syuuha --> if1
-if1 -->|yes| yes1
+if1 -->|yes| jyusinn2
 if1 -->|no| jyusinn
-yes1 --> kakuno
+jyusinn2 --> syuuha2
+syuuha2 --> kakuno
 kakuno --> if2
 if2 -->|yes| end1
-if2 -->|no| yes1
+if2 -->|no| jyusinn2
 ```
 
 ## フローチャート
