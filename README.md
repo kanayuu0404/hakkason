@@ -258,7 +258,7 @@ aizu2["送信終了の合図として受信側が0を14ビット取得するま�
 start --> uke
 uke --> hennkann
 hennkann --> aizu1
-aizu1 --> loop_start
+aizu1 --> loop1
 loop1 --> toru
 toru --> judge
 judge -->|yes| on
