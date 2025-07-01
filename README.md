@@ -3,30 +3,6 @@
 ```mermaid
 flowchart TD;
 
-start["開始"];
-end1["終了"]
-nyu["文字入力"]
-hen["入力された文字をASCIIコードを用いて2進数データに変換"]
-hen2["2進数データから1文字分ずつ4進数に変換"]
-aizu1["送信の合図に用いるLEDを点灯し続ける"]
-toru["受け取った4進数のデータから上位1桁ずつ取り出す"]
-syutu["取り出した4進数1桁に対応するLEDを点灯"]
-aizu2["送信の合図用いるLEDを消灯"]
-
-start --> nyu
-nyu --> hen
-hen --> hen2
-hen2 --> aizu1
-aizu1 --> toru
-toru --> syutu
-syutu --> aizu2
-aizu2 --> end1
-```
-
-## 光送信2
-```mermaid
-flowchart TD;
-
 start["開始"]
 end1["終了"]
 
@@ -54,34 +30,6 @@ aizu2 --> end1
 ```
 
 ## 光受信
-```mermaid
-flowchart TD;
-
-start["開始"];
-end1["終了"]
-check1["通信合図に用いるLEDを対応している照度センサで確認"]
-if1{"通信合図に用いるLEDが点灯している"}
-syoudo["各照度センサで対応しているLEDを確認"]
-syu["点灯していたLEDに対応する4進数1桁を取得"]
-kakuno["取得したデータを配列に格納"]
-check2["通信合図に用いるLEDを対応している照度センサで確認"]
-if2{"通信合図に用いるLEDが点灯している"}
-oto["格納したデータを音通信へ送る"]
-
-start --> check1
-check1 --> if1
-if1 -->|yes 通信開始| syoudo
-if1 -->|no| check1
-syoudo --> syu
-syu --> kakuno
-kakuno --> check2
-check2 --> if2
-if2 -->|yes| syoudo
-if2 -->|no 通信終了| oto
-oto --> end1
-```
-
-## 光受信2
 ```mermaid
 flowchart TD;
 
@@ -121,27 +69,6 @@ start["開始"];
 end1["終了"]
 uke["光通信から4進数データを受け取る"]
 aizu1["送信開始の合図として3600Hzの音を2回出力"]
-toru["受け取った4進数のデータから上位2桁ずつ取り出す"]
-syutu["取り出した4進数2桁に対応する音を出力"]
-aizu2["送信終了の合図として3600Hzの音を2回出力"]
-
-start --> uke
-uke --> hennkann
-hennkann --> aizu1
-aizu1 --> toru
-toru --> syutu
-syutu --> aizu2
-aizu2 --> end1
-```
-
-## 音送信2
-```mermaid
-flowchart TD;
-
-start["開始"];
-end1["終了"]
-uke["光通信から4進数データを受け取る"]
-aizu1["送信開始の合図として3600Hzの音を2回出力"]
 loop["音出力ループ開始"]
 toru["4進数データから上位2桁ずつ取り出す"]
 syutu["取り出したデータに対応する周波数の音を出力"]
@@ -157,36 +84,6 @@ check -- yes --> aizu2 --> end1
 ```
 
 ## 音受信
-```mermaid
-flowchart TD;
-
-start["開始"];
-end1["終了"]
-jyusinn["音を受信"]
-jyusinn2["音を受信"]
-syuuha["高速フーリエ展開(FFT)で周波数を検知"]
-syuuha2["高速フーリエ展開(FFT)で周波数を検知"]
-if1{"送信開始合図の周波数を2回検知したか"}
-syutoku["検知した音に対応した4進数2桁を取得"]
-kakuno["取得したデータを配列に格納"]
-if2{"送信終了合図の周波数を2回検知したか"}
-sindou["格納したデータを振動通信へ送る"]
-
-start --> jyusinn
-jyusinn --> syuuha
-syuuha --> if1
-if1 -->|yes 通信開始| jyusinn2
-if1 -->|no| jyusinn
-jyusinn2 --> syuuha2
-syuuha2 --> syutoku
-syutoku --> kakuno
-kakuno --> if2
-if2 -->|yes 通信終了| sindou
-if2 -->|no| jyusinn2
-sindou --> end1
-```
-
-## 音受信2
 ```mermaid
 flowchart TD;
 
@@ -222,26 +119,6 @@ sindou --> end1
 ```mermaid
 flowchart TD;
 
-start["開始"];
-end1["終了"]
-uke["音通信から4進数データを受け取る"]
-hennkann["受け取った4進数のデータを2進数に変換"]
-aizu1["送信開始の合図として1を7ビット送信する"]
-sousinn["2進数を振動の有無で表現しデータを送る"]
-aizu2["送信終了の合図として受信側が0を14ビット取得するまで待機"]
-
-start --> uke
-uke --> hennkann
-hennkann --> aizu1
-aizu1 --> sousinn
-sousinn --> aizu2
-aizu2 --> end1
-```
-
-## 振動送信2
-```mermaid
-flowchart TD;
-
 start["開始"]
 end1["終了"]
 uke["音通信から4進数データを受け取る"]
@@ -272,50 +149,6 @@ aizu2 --> end1
 ```
 
 ## 振動受信
-```mermaid
-flowchart TD;
-
-start["開始"];
-end1["終了"]
-bekutoru["加速度センサの3軸方向のベクトル距離を算出"]
-kijyun["開始時に加速度センサに与えられた加速度のベクトル距離を停止状態として基準にする"]
-bekutoru2["加速度センサの3軸方向のベクトル距離を算出"]
-if1{"加速度センサに与えられた加速度のベクトル距離が停止状態と比べて一定値以上大きいか"}
-syutoku0["振動が無かったと判断し0を取得"]
-syutoku1["振動が有ったと判断し1を取得"]
-if2["1を7ビット連続で取得したか"]
-bekutoru3["加速度センサの3軸方向のベクトル距離を算出"]
-if3{"加速度センサに与えられた加速度のベクトル距離が停止状態と比べて一定値以上大きいか"}
-syutoku02["振動が無かったと判断し0を取得"]
-syutoku12["振動が有ったと判断し1を取得"]
-kakuno["取得したデータを配列に格納"]
-if4["0を14ビット連続で取得したか"]
-hukugen["配列内にある2進数データを7ビットずつ区切りASCIIコードを用いて文字に復元する"]
-hyouji["復元した文字列を表示する"]
-
-start --> bekutoru
-bekutoru --> kijyun
-kijyun --> bekutoru2
-bekutoru2 --> if1
-if1 -->|yes| syutoku1
-if1 -->|no| syutoku0
-syutoku0 --> bekutoru2
-syutoku1 --> if2
-if2 -->|yes 通信開始| bekutoru3
-if2 -->|no| bekutoru2
-bekutoru3 --> if3
-if3 -->|yes| syutoku12
-if3 -->|no| syutoku02
-syutoku12 --> kakuno
-syutoku02 --> kakuno
-kakuno --> if4
-if2 -->|yes 通信終了| hukugen
-if2 -->|no| bekutoru3
-hukugen --> hyouji
-hyouji --> end1
-```
-
-## 振動受信2
 ```mermaid
 flowchart TD;
 
